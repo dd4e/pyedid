@@ -76,6 +76,11 @@ celerybeat-schedule
 
 # dotenv
 .env
+.venv
 
 # Spyder project settings
 .spyderproject
+
+#IDE
+.vscode
+.*cache
