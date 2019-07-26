@@ -9,3 +9,6 @@ install:
   - python setup.py -q install
 script:
   - pytest
+after_script:
+  - pip install codecov
+  - codecov
