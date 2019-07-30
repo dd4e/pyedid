@@ -1,0 +1,13 @@
+dist: xenial
+language: python
+python:
+  - "3.6"
+  - "3.7"
+  - "3.8-dev"
+install:
+  - python setup.py -q install
+  - pip install codecov pytest pytest-cov
+script:
+  - pytest --cov=./
+after_script:
+  - codecov
