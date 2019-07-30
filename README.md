@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.com/dadmoscow/pyedid.svg?branch=master)](https://travis-ci.com/dadmoscow/pyedid) [![codecov](https://codecov.io/gh/dadmoscow/pyedid/branch/master/graph/badge.svg)](https://codecov.io/gh/gomarkdown/markdown) [![PyPI version](https://badge.fury.io/py/pyedid.svg)](https://badge.fury.io/py/pyedid)
+[![Build Status](https://travis-ci.com/dadmoscow/pyedid.svg?branch=master)](https://travis-ci.com/dadmoscow/pyedid) [![codecov](https://codecov.io/gh/dadmoscow/pyedid/branch/master/graph/badge.svg)](https://codecov.io/gh/dadmoscow/pyedid) [![PyPI version](https://badge.fury.io/py/pyedid.svg)](https://badge.fury.io/py/pyedid)
 # pyEDID
 This is a python library to parse extended display identification data (EDID)
 
