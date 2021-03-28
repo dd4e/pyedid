@@ -1,36 +1,45 @@
-[![Build Status](https://travis-ci.com/dadmoscow/pyedid.svg?branch=master)](https://travis-ci.com/dadmoscow/pyedid) [![codecov](https://codecov.io/gh/dadmoscow/pyedid/branch/master/graph/badge.svg)](https://codecov.io/gh/dadmoscow/pyedid) [![PyPI version](https://badge.fury.io/py/pyedid.svg)](https://badge.fury.io/py/pyedid)
+[![Build Status](https://travis-ci.com/dd4e/pyedid.svg?branch=master)](https://travis-ci.com/dd4e/pyedid)
+[![codecov](https://codecov.io/gh/dd4e/pyedid/branch/master/graph/badge.svg?token=pM61OV0pzx)](https://codecov.io/gh/dd4e/pyedid)
+[![PyPI version](https://badge.fury.io/py/pyedid.svg)](https://badge.fury.io/py/pyedid)
+
 # pyEDID
+
 This is a python library to parse extended display identification data (EDID)
 
 ## EDID data format
+
 The EDID data frame format is described in detail on its [Wikipedia page](https://en.wikipedia.org/wiki/Extended_Display_Identification_Data).
 
 # Getting started
 
 ## Requirements
+
 * Python 3.6+
 
 ## Setup
+
 From pypi
+
 ```bash
 >>> pip install pyedid
 ```
+
 or from github
+
 ```bash
 >>> git clone https://github.com/dadmoscow/pyedid
 >>> python pyedid/setup.py install
 ```
 
 ## Features
+
 * Receive and decrypt EDID data
 * Online converting manufacturer id, dumping registry to local csv
 * Works as a shell utility
 * Without third-party dependencies
 
-## ToDo
-* Add Python 2.7 support
+## Usage
 
-## Use
 ### As a library
 
 ```python
@@ -86,6 +95,7 @@ print(edid)
 ```
 
 ### As a system utility
+
 ```bash
 >>> pyedid
 
@@ -113,4 +123,5 @@ print(edid)
 ```
 
 ## Licensing
+
 See LICENSE
