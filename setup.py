@@ -1,34 +1,51 @@
-"""
-Setup module
-"""
-from os import path
-
+'''Setup module'''
+import os
 from setuptools import setup, find_packages
 
-this_directory = path.abspath(path.dirname(__file__))
-with open(path.join(this_directory, 'README.md'), encoding='utf-8') as f:
-    long_description = f.read()
+def read(rel_path: str) -> str:
+    here = os.path.abspath(os.path.dirname(__file__))
+    with open(os.path.join(here, rel_path), 'r') as fp:
+        return fp.read()
+
+def get_version(rel_path):
+    for line in read(rel_path).splitlines():
+        if line.startswith('__version__'):
+            delim = '"' if '"' in line else "'"
+            return line.split(delim)[1]
+
+long_description = read('README.md')
+version = get_version('pyedid/__init__.py')
+
 
 setup(
-    name="pyedid",
-    version="0.1",
-    packages=find_packages(),
-    entry_points={"console_scripts": ["pyedid = pyedid.main:main"]},
-    author="Jonas Lieb",
-    author_email="",
-    maintainer="Davydov Denis",
-    maintainer_email="dadmoscow@gmail.com",
-    url="https://github.com/dadmoscow/pyedid",
-    description="This is a python library to parse extended display identification data (EDID)",
+    name='pyedid',
+    version=version,
+    packages=find_packages(exclude=['tests']),
+    author='Davydov Denis, Jonas Lieb',
+    author_email='dadmoscow@gmail.com',
+    url='https://github.com/dd4e/pyedid',
+    description='Library to parse extended display identification data (EDID)',
     long_description=long_description,
     long_description_content_type='text/markdown',
-    keywords="edid xrandr display",
+    license='MIT',
+    install_requires=[
+        "requests>=2"
+    ],
+    keywords=[
+        'edid',
+        'xrandr',
+        'display',
+        'monitor',
+    ],
     classifiers=[
-        "Development Status :: 4 - Beta",
-        "License :: OSI Approved :: MIT License",
-        "Operating System :: POSIX :: Linux",
-        "Programming Language :: Python :: 3",
-        "Topic :: Software Development :: Libraries",
-        "Topic :: System :: Hardware",
+        'Development Status :: 5 - Production/Stable',
+        'License :: OSI Approved :: MIT License',
+        'Operating System :: POSIX :: Linux',
+        'Programming Language :: Python :: 3.6',
+        'Programming Language :: Python :: 3.7',
+        'Programming Language :: Python :: 3.8',
+        'Programming Language :: Python :: 3.9',
+        'Topic :: Software Development :: Libraries',
+        'Topic :: System :: Hardware',
     ]
 )

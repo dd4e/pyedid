@@ -1,125 +1,106 @@
-[![Build Status](https://travis-ci.com/dd4e/pyedid.svg?branch=master)](https://travis-ci.com/dd4e/pyedid)
-[![codecov](https://codecov.io/gh/dd4e/pyedid/branch/master/graph/badge.svg?token=pM61OV0pzx)](https://codecov.io/gh/dd4e/pyedid)
-[![PyPI version](https://badge.fury.io/py/pyedid.svg)](https://badge.fury.io/py/pyedid)
-
 # pyEDID
 
-This is a python library to parse extended display identification data (EDID)
+[![Build Status](https://travis-ci.com/dd4e/pyedid.svg?branch=master)](https://travis-ci.com/dd4e/pyedid)
+[![codecov](https://codecov.io/gh/dd4e/pyedid/branch/master/graph/badge.svg?token=pM61OV0pzx)](https://codecov.io/gh/dd4e/pyedid)
+![PyPI](https://img.shields.io/pypi/v/pyedid)
+![PyPI - Python Version](https://img.shields.io/pypi/pyversions/pyedid)
+![PyPI - Status](https://img.shields.io/pypi/status/pyedid)
+![PyPI - Downloads](https://img.shields.io/pypi/dm/pyedid)
+![PyPI - License](https://img.shields.io/pypi/l/pyedid)
+
+## Getting started
+
+This is a python library to parse extended display identification data (EDID).
+
+This project based on [pyedid](https://github.com/jojonas/pyedid)
 
 ## EDID data format
 
-The EDID data frame format is described in detail on its [Wikipedia page](https://en.wikipedia.org/wiki/Extended_Display_Identification_Data).
-
-# Getting started
+The EDID data frame format is described in detail on the [Wikipedia](https://en.wikipedia.org/wiki/Extended_Display_Identification_Data) page.
 
 ## Requirements
 
-* Python 3.6+
+- Python 3.6+
+- requests
 
 ## Setup
 
-From pypi
-
 ```bash
->>> pip install pyedid
-```
-
-or from github
-
-```bash
->>> git clone https://github.com/dadmoscow/pyedid
->>> python pyedid/setup.py install
+pip3 install pyedid
 ```
 
 ## Features
 
-* Receive and decrypt EDID data
-* Online converting manufacturer id, dumping registry to local csv
-* Works as a shell utility
-* Without third-party dependencies
+- Parsing EDID data from hex or bytes
+- Embedded PNP ID registry with dump/restore to CSV file
+- Updatable PNP ID registry from www.uefi.org
 
-## Usage
+## Docs
 
-### As a library
+> ToDO
+
+## Quickstart
+
+### Parsing some hex EDID data with the default registry
 
 ```python
-from pyedid.edid import Edid
-from pyedid.helpers.edid_helper import EdidHelper
-from pyedid.helpers.registry import Registry
+import pyedid
 
-#### Step 1: loading registry
-# load pnp registry from http://www.uefi.org/pnp_id_list
-registry = Registry.from_web()
+edid_hex = (
+    '00ffffffffffff000469982401010101'
+    '1e1b01031e351e78ea9265a655559f28'
+    '0d5054bfef00714f818081409500a940'
+    'b300d1c00101023a801871382d40582c'
+    '4500132b2100001e000000fd00324c1e'
+    '5311000a202020202020000000fc0056'
+    '533234380a20202020202020000000ff'
+    '0048374c4d51533132323136310a0000'
+)
 
-# or loading from local csv file
-registry = Registry.from_csv('/tmp/foo.csv')
+# returned Edid object, used the Default embedded registry
+edid = pyedid.parse_edid(edid_hex)
 
-# load from web and dump to csv
-registry = Registry.from_web().to_csv('/tmp/bar.csv')
+edid.name # 'VS248'
+edid.manufacturer # 'Ancor Communications Inc'
+edid.serial # 'H7LMQS122161'
+edid.year # 2017
+edid.width # 53.0
+edid.height # 30.0
+edid.resolutions # list with resulutions (x, y, rate), ex (720, 400, 70.0)
+edid. # some other EDID data
 
-# only update
-Registry.from_web().to_csv('/tmp/bar.csv')
-
-#### Step 2: loading edid data
-
-# loading list with edid data
-edid_bs = EdidHelper.get_edids()[0]
-
-# convert exist edid hex string from xrandr
-edid_bs = EdidHelper.hex2bytes("hex string from xrandr...")
-
-#### Step 3: create instance
-
-# create Edid instance for fisrt edid data
-edid = Edid(edid_bs, registry)
-print(edid)
-
-# Edid(
-# 	dpms_activeoff=True,
-# 	dpms_standby=True,
-# 	dpms_suspend=True,
-# 	edid_version=1.3,
-# 	gamma=2.2,
-# 	height=30.0,
-# 	manufacturer=Ancor Communications Inc,
-# 	manufacturer_id=1129,
-# 	name=VS248,
-# 	product=38948,
-# 	raw=b'\x00\xff\xff\xff\xff\xff\xff\x00\x04i\x98$\x01\x01\x01\x01\x1e\x1b\x01\x03\x1e5\x1ex\xea\x92e\xa6UU\x9f(\rPT\xbf\xef\x00qO\x81\x80\x81@\x95\x00\xa9@\xb3\x00\xd1\xc0\x01\x01\x02:\x80\x18q8-@X,E\x00\x13+!\x00\x00\x1e\x00\x00\x00\xfd\x002L\x1eS\x11\x00\n      \x00\x00\x00\xfc\x00VS248\n       \x00\x00\x00\xff\x00H7LMQS122161\n\x00\x00',
-# 	resolutions=[(720, 400, 70.0), (720, 400, 88.0), (640, 480, 60.0), (640, 480, 67.0), (640, 480, 72.0), (640, 480, 75.0), (800, 600, 56.0), (800, 600, 60.0), (800, 600, 70.0), (800, 600, 75.0), (832, 624, 75.0), (1024, 768, 87.0), (1024, 768, 60.0), (1024, 768, 72.0), (1024, 768, 75.0), (1152, 864, 75.0), (1280, 1024, 60.0), (1280, 960, 60.0), (1440, 900, 60.0), (1600, 1200, 60.0), (1680, 1050, 60.0), (1920, 1080, 60.0)],
-# 	serial=H7LMQS123181,
-# 	type=digital,
-# 	width=53.0,
-# 	year=2017
-# )
+json_str = str(edid) # making JSON string object
 ```
 
-### As a system utility
+### Getting EDID from `xrandr --verbose`
 
-```bash
->>> pyedid
+```python
+from pyedid import get_edid_from_xrandr_verbose
+from subprocess import check_output
 
-# Loading registry from web...
-# Done!
+# getting `xrandr --verbose` output
+randr = check_output(['xrandr', '--verbose'])
 
-# Edid(
-# 	dpms_activeoff=True,
-# 	dpms_standby=True,
-# 	dpms_suspend=True,
-# 	edid_version=1.3,
-# 	gamma=2.2,
-# 	height=30.0,
-# 	manufacturer=Ancor Communications Inc,
-# 	manufacturer_id=1129,
-# 	name=VS248,
-# 	product=38948,
-# 	raw=b'\x00\xff\xff\xff\xff\xff\xff\x00\x04i\x98$\x01\x01\x01\x01\x1e\x1b\x01\x03\x1e5\x1ex\xea\x92e\xa6UU\x9f(\rPT\xbf\xef\x00qO\x81\x80\x81@\x95\x00\xa9@\xb3\x00\xd1\xc0\x01\x01\x02:\x80\x18q8-@X,E\x00\x13+!\x00\x00\x1e\x00\x00\x00\xfd\x002L\x1eS\x11\x00\n      \x00\x00\x00\xfc\x00VS248\n       \x00\x00\x00\xff\x00H7LMQS122161\n\x00\x00',
-# 	resolutions=[(720, 400, 70.0), (720, 400, 88.0), (640, 480, 60.0), (640, 480, 67.0), (640, 480, 72.0), (640, 480, 75.0), (800, 600, 56.0), (800, 600, 60.0), (800, 600, 70.0), (800, 600, 75.0), (832, 624, 75.0), (1024, 768, 87.0), (1024, 768, 60.0), (1024, 768, 72.0), (1024, 768, 75.0), (1152, 864, 75.0), (1280, 1024, 60.0), (1280, 960, 60.0), (1440, 900, 60.0), (1600, 1200, 60.0), (1680, 1050, 60.0), (1920, 1080, 60.0)],
-# 	serial=H7LMQS123181,
-# 	type=digital,
-# 	width=53.0,
-# 	year=2017
-# )
+# parsing xrandr outputs to a bytes edid's list
+edids = get_edid_from_xrandr_verbose(randr)
+
+# parsing edid
+edid = pyedid.parse_edid(edids[0])
+```
+
+### Working with registry
+
+```python
+from pyedid import Registry, DEFAULT_REGISTRY
+
+# making a registry object from www.uefi.org
+r_web = Registry.from_web()
+
+# dumping the default registry to csv file
+DEFAULT_REGISTRY.to_csv('/path/to/csv.file')
+
+# restoring registry from csv file
+r_csv = Registry.from_csv('/path/to/csv.file')
 ```
 
 ## Licensing
