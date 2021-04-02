@@ -12,6 +12,8 @@
 
 This is a python library to parse extended display identification data (EDID).
 
+This project based on [pyedid](https://github.com/jojonas/pyedid)
+
 ## EDID data format
 
 The EDID data frame format is described in detail on the [Wikipedia](https://en.wikipedia.org/wiki/Extended_Display_Identification_Data) page.
