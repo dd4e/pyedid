@@ -65,6 +65,9 @@ class Registry(UserDict):
     __PNP_FILTER = '/pnp_id_list?search='
     __DEFAULT_NAME = 'Unknown'
 
+    def __repr__(self) -> str:
+        return f'Registry({len(self)} items)'
+
     @classmethod
     def from_web(cls, filter_by_id: Optional[str] = None) -> 'Registry':
         '''Return the registry updated from uefi.org

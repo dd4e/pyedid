@@ -1,5 +1,6 @@
 '''Parse Edid test module'''
 
+import json
 import pytest
 
 from pyedid import parse_edid, Edid, Registry
@@ -105,3 +106,16 @@ def test_parse_edid_bad_values():
 
     assert str(err_checksum_t.value) == 'Checksum mismatch'
     assert str(err_header_t.value) == 'Invalid EDID header'
+
+def test_repr():
+    parsed = parse_edid(BASE_HEX_EDID)
+    assert repr(parsed) == f'Edid({parsed.manufacturer} {parsed.name}, s/n {parsed.serial})'
+
+def test_str():
+    parsed = parse_edid(BASE_HEX_EDID)
+    json_obj = json.loads(str(parsed))
+
+    for key, value in json_obj.items():
+        if isinstance(value, list):
+            value = [tuple(i) for i in value]
+        assert getattr(parsed, key) == value

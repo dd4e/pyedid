@@ -1,5 +1,7 @@
 '''Edid data types'''
 
+import json
+
 from collections import namedtuple
 from typing import List, NamedTuple, Optional, Tuple, Union
 
@@ -23,8 +25,10 @@ class Edid(NamedTuple):
     serial: Union[str, int]
 
     def __repr__(self) -> str:
-        return f"Edid({self.manufacturer} {self.name})"
+        return f"Edid({self.manufacturer} {self.name}, s/n {self.serial})"
 
+    def __str__(self) -> str:
+        return json.dumps(self._asdict())
 
 _RAW_EDID = namedtuple(
     '_RAW_EDID',

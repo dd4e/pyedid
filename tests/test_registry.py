@@ -118,3 +118,6 @@ def test_get_company_by_raw_nf():
 
 def test_get_company_by_raw_bad():
     assert DEFAULT_REGISTRY.get_company_by_raw(99999) == 'Unknown'
+
+def test_repr():
+    assert repr(DEFAULT_REGISTRY) == f'Registry({len(DEFAULT_REGISTRY)} items)'

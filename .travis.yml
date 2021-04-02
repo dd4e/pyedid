@@ -8,7 +8,7 @@ python:
   - "3.9-dev"
 install:
   - python setup.py -q install
-  - pip install codecov pytest pytest-cov
+  - pip install codecov pytest pytest-cov requests
 script:
   - pytest --cov=./
 after_script:
