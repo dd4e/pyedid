@@ -12,6 +12,7 @@ class Edid(NamedTuple):
     manufacturer: str
     product_id: int
     year: int
+    week: int
     edid_version: str
     type: str
     width: float
