@@ -63,11 +63,12 @@ edid = pyedid.parse_edid(edid_hex)
 edid.name # 'VS248'
 edid.manufacturer # 'Ancor Communications Inc'
 edid.serial # 'H7LMQS122161'
-edid.year # 2017
-edid.width # 53.0
-edid.height # 30.0
+edid.year # 2017 (year of manufacture)
+edid.week # 30 (week of manufacture)
+edid.width # 53.0 cm
+edid.height # 30.0 cm
 edid.resolutions # list with resulutions (x, y, rate), ex (720, 400, 70.0)
-edid. # some other EDID data
+edid... # some other EDID data
 
 json_str = str(edid) # making JSON string object
 ```

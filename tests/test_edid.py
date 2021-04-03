@@ -20,6 +20,7 @@ def test_parse_edid_base_hex():
     assert parsed.height == 30.0
     assert parsed.width == 53.0
     assert parsed.year == 2017
+    assert parsed.week == 30
     assert len(parsed.resolutions) == 22
     assert parsed.dpms_activeoff
     assert parsed.dpms_standby
@@ -37,6 +38,7 @@ def test_parse_edid_base_bytes():
     assert parsed.height == 30.0
     assert parsed.width == 53.0
     assert parsed.year == 2017
+    assert parsed.week == 30
     assert len(parsed.resolutions) == 22
     assert parsed.dpms_activeoff
     assert parsed.dpms_standby
@@ -54,6 +56,7 @@ def test_parse_edid_extented_hex():
     assert parsed.height == 30.0
     assert parsed.width == 53.0
     assert parsed.year == 2017
+    assert parsed.week == 30
     assert len(parsed.resolutions) == 22
     assert parsed.dpms_activeoff
     assert parsed.dpms_standby
@@ -71,6 +74,7 @@ def test_parse_edid_extented_bytes():
     assert parsed.height == 30.0
     assert parsed.width == 53.0
     assert parsed.year == 2017
+    assert parsed.week == 30
     assert len(parsed.resolutions) == 22
     assert parsed.dpms_activeoff
     assert parsed.dpms_standby

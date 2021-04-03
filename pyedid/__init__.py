@@ -15,7 +15,7 @@ __all__ = (
     'parse_edid'
 )
 
-__version__ = '1.0'
+__version__ = '1.0.1'
 
 
 def parse_edid(raw: Union[bytes, str], registry: Registry = DEFAULT_REGISTRY) -> Edid:
@@ -87,6 +87,7 @@ def parse_edid(raw: Union[bytes, str], registry: Registry = DEFAULT_REGISTRY) ->
         manufacturer = registry.get_company_by_raw(raw_edid.manu_id),
         product_id = raw_edid.prod_id,
         year = raw_edid.manu_year + 1990,
+        week = raw_edid.manu_week,
         edid_version = '{:d}.{:d}'.format(raw_edid.edid_version, raw_edid.edid_revision),
         type = 'digital' if (raw_edid.input_type & 0xFF) else 'analog',
         width = float(raw_edid.width),
