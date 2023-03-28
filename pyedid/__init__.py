@@ -56,15 +56,18 @@ def parse_edid(raw: Union[bytes, str], registry: Registry = DEFAULT_REGISTRY) ->
             resolutions.append(_TIMINGS[16-i])
 
     for i in range(8):
-        bytes_data = raw_edid.timings_edid[2*i:2*i+2]
-        if bytes_data == b'\x01\x01':
-            continue
-        byte1, byte2 = bytes_data
-        x_res = 8*(int(byte1)+31)
-        aspect_ratio = _ASPECT_RATIOS[(byte2>>6) & 0b11]
-        y_res = int(x_res * aspect_ratio[1]/aspect_ratio[0])
-        rate = (int(byte2) & 0b00111111) + 60.0
-        resolutions.append((x_res, y_res, rate))
+        try:
+            bytes_data = raw_edid.timings_edid[2*i:2*i+2]
+            if bytes_data == b'\x01\x01':
+                continue
+            byte1, byte2 = bytes_data
+            x_res = 8*(int(byte1)+31)
+            aspect_ratio = _ASPECT_RATIOS[(byte2>>6) & 0b11]
+            y_res = int(x_res * aspect_ratio[1]/aspect_ratio[0])
+            rate = (int(byte2) & 0b00111111) + 60.0
+            resolutions.append((x_res, y_res, rate))
+        except:
+            pass
 
     name: Optional[str] = None
     serial: Optional[str] = None
