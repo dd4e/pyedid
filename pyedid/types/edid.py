@@ -10,6 +10,7 @@ class Edid(NamedTuple):
     '''Parsed EDID object'''
     manufacturer_id: int
     manufacturer: str
+    manufacturer_pnp_id: str
     product_id: int
     year: int
     week: int
