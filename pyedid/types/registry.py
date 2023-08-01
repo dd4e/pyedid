@@ -148,11 +148,15 @@ class Registry(UserDict):
         '''Convert PNP id to company name or 'Unknown' if not found'''
         return self.get(pnp_id, self.__DEFAULT_NAME)
 
-    def get_company_by_raw(self, raw_id: int) -> str:
+    def get_company_pnp_id(self, raw_id: int) -> str:
         '''Convert raw edid value to company name or 'Unknown' if not found'''
         tmp = [(raw_id >> 10) & 31, (raw_id >> 5) & 31, raw_id & 31]
         try:
-            pnp_id = ''.join(string.ascii_uppercase[n-1] for n in tmp)
-            return self.get_company_by_pnp(pnp_id)
+            return ''.join(string.ascii_uppercase[n-1] for n in tmp)
         except IndexError:
             return self.__DEFAULT_NAME
+
+    def get_company_by_raw(self, raw_id: int) -> str:
+        '''Convert raw edid value to PNP ID or 'Unknown' if not found'''
+        pnp_id = self.get_company_pnp_id(raw_id)
+        return self.get_company_by_pnp(pnp_id)

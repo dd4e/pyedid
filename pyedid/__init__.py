@@ -88,6 +88,7 @@ def parse_edid(raw: Union[bytes, str], registry: Registry = DEFAULT_REGISTRY) ->
     return Edid(
         manufacturer_id = raw_edid.manu_id,
         manufacturer = registry.get_company_by_raw(raw_edid.manu_id),
+        manufacturer_pnp_id = registry.get_company_pnp_id(raw_edid.manu_id),
         product_id = raw_edid.prod_id,
         year = raw_edid.manu_year + 1990,
         week = raw_edid.manu_week,
