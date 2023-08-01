@@ -15,7 +15,7 @@ __all__ = (
     'parse_edid'
 )
 
-__version__ = '1.0.2'
+__version__ = '1.0.3'
 
 
 def parse_edid(raw: Union[bytes, str], registry: Registry = DEFAULT_REGISTRY) -> Edid:
